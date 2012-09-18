@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ReadMessage" android:label="@string/read_message"></activity>
         
         <receiver android:name=".C2DMReceiver" android:permission="com.google.android.c2dm.permission.SEND">
           <!-- Receive the actual message -->
