@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this); // Mag weg bij de publish
         final String regId = GCMRegistrar.getRegistrationId(this);
+        System.out.println("REGID: " + regId);
         if (regId.equals("")) {
           GCMRegistrar.register(this, SENDER_ID);
         } else {
