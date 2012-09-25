@@ -7,23 +7,29 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity {
 
 	private static final int NOTIFICATION_ID = 1;
+	private static final String SENDER_ID = "502694206342";
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
-        registrationIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0)); // boilerplate
-        registrationIntent.putExtra("sender", "mul.jasper@gmail.com");
-        startService(registrationIntent);
-        
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this); // Mag weg bij de publish
+        final String regId = GCMRegistrar.getRegistrationId(this);
+        if (regId.equals("")) {
+          GCMRegistrar.register(this, SENDER_ID);
+        } else {
+          Log.v("JAJA", "Already registered");
+        }
     }
     
     public void test(View v) {
