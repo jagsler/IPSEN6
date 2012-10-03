@@ -1,6 +1,19 @@
 package edu.self.ipsen6;
 
+import java.io.InputStream;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONObject;
+
 import android.os.Bundle;
+import android.os.Looper;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -24,7 +37,7 @@ public class MainActivity extends Activity {
         
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this); // Mag weg bij de publish
-        final String regId = GCMRegistrar.getRegistrationId(this);
+        String regId = GCMRegistrar.getRegistrationId(this);
         System.out.println("REGID: " + regId);
         if (regId.equals("")) {
           GCMRegistrar.register(this, SENDER_ID);
@@ -33,6 +46,7 @@ public class MainActivity extends Activity {
         }
     }
     
+   
     public void test(View v) {
     	String ns = Context.NOTIFICATION_SERVICE;
     	NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
